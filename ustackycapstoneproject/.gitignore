@@ -1,0 +1,7 @@
+.vscode
+.env
+/virtenv
+venv
+static/images/*
+!static/images/home_img.svg
+!static/images/Rising_sun.jpg

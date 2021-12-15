@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% block title %}
+<title>Dictionary App - Dashboard</title>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {%block page_heading%}
+    <h2>Word Index</h2>
+    {%endblock%}
+    <div class="col-md-2 sidenav">
+        <a {%block index_active%}class="side-active"{%endblock%} href="{{url_for('dashboard')}}">All Words</a>
+        <a {%block create_active%}{%endblock%} href="{{url_for('word_create')}}">Add New</a>
+        <a {%block image_active%}{%endblock%} href="{{url_for('add_image')}}">Add Image</a>
+    </div>
+    <div class="col-md-10 main">
+        {% block main%}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Word</th>
+                    <th>Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for word in words%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{word['word']}}</td>
+                    <td>{{word['meaning']}}</td>
+                    <td><a href="{{url_for('word_details',id=word['id'])}}" class="btn btn-md btn-primary btn-block">Edit</a></td>
+                    <form action="{{url_for('word_delete',id=word['id'])}}" method="post">
+                        <td><button type="submit" class="btn btn-md btn-danger btn-block" onclick="alert('Are you sure you want to delete this entry?')">Delete</button></td>
+                    </form>
+                </tr>
+                {%else%}
+                <tr>
+                    <td colspan=3>The dictionary has no words at the moment</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        {%endblock%}
+    </div>
+</div>
+{% endblock %}  
+
+{%block active_dash%}
+class="active"
+{%endblock%}
